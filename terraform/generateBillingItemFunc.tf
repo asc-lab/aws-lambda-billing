@@ -1,6 +1,6 @@
 resource "aws_lambda_function" "generateBillingItemFunc" {
   function_name = "GenerateBillingItemFunc"
-  handler = "io.micronaut.function.aws.MicronautRequestStreamHandler"
+  handler = "pl.altkom.asc.lab.lambda.billing.GenerateBillingItemFunction::apply"
   role = "${aws_iam_role.lambda_role.arn}"
   runtime = "java8"
   filename = "generateBillingItemFunc/target/generateBillingItemFunc-0.1.jar"

@@ -1,9 +1,9 @@
 package pl.altkom.asc.lab.lambda.billing
 
 import com.amazonaws.services.s3.event.S3EventNotification
-import io.micronaut.function.FunctionBean
 import org.slf4j.LoggerFactory
 import pl.altkom.asc.lab.lambda.billing.aws.S3Client
+import pl.altkom.asc.lab.lambda.billing.aws.SQSClient
 import pl.altkom.asc.lab.lambda.billing.billing.ActiveListParser
 import pl.altkom.asc.lab.lambda.billing.billing.BillingItemGenerator
 import pl.altkom.asc.lab.lambda.billing.billing.BillingItemRepository
@@ -12,13 +12,12 @@ import pl.altkom.asc.lab.lambda.billing.invoicing.InvoiceGenerationRequestPublis
 import pl.altkom.asc.lab.lambda.billing.pricing.PriceListRepository
 import java.util.function.Function
 
-@FunctionBean("generate-billing-item-func")
 class GenerateBillingItemFunction(
-        val s3Client: S3Client,
-        val activeListParser: ActiveListParser,
-        val priceListRepository: PriceListRepository,
-        val billingItemRepository: BillingItemRepository,
-        var invoiceGenerationRequestPublisher: InvoiceGenerationRequestPublisher
+        val s3Client: S3Client = S3Client(),
+        val activeListParser: ActiveListParser = ActiveListParser(),
+        val priceListRepository: PriceListRepository = PriceListRepository(),
+        val billingItemRepository: BillingItemRepository = BillingItemRepository(),
+        var invoiceGenerationRequestPublisher: InvoiceGenerationRequestPublisher = InvoiceGenerationRequestPublisher(SQSClient().amazonSQS())
 ) : Function<S3EventNotification, String> {
 
     private val log = LoggerFactory.getLogger(this.javaClass)!!

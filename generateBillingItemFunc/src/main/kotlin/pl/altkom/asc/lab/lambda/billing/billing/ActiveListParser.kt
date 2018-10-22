@@ -1,9 +1,7 @@
 package pl.altkom.asc.lab.lambda.billing.billing
 
 import java.io.BufferedReader
-import javax.inject.Singleton
 
-@Singleton
 class ActiveListParser {
 
     fun parse(name: String, reader: BufferedReader): ActiveList {

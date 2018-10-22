@@ -2,9 +2,7 @@ package pl.altkom.asc.lab.lambda.billing.billing
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
-import javax.inject.Singleton
 
-@Singleton
 class BillingItemRepository {
 
     private val client = AmazonDynamoDBClientBuilder.standard().build()

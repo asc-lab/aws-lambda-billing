@@ -32,9 +32,8 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>io.micronaut</groupId>
-            <artifactId>function-aws</artifactId>
-            <scope>compile</scope>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -46,11 +45,6 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
             <version>${kotlinVersion}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.micronaut</groupId>
-            <artifactId>runtime</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -93,26 +87,6 @@
             <artifactId>jackson-module-kotlin</artifactId>
             <version>2.9.4.1</version>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.micronaut</groupId>
-            <artifactId>function-client</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.micronaut</groupId>
-            <artifactId>http-client</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.micronaut</groupId>
-            <artifactId>http-server-netty</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.micronaut</groupId>
-            <artifactId>function-web</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -192,9 +166,9 @@
                     <compilerPlugins>
                         <plugin>all-open</plugin>
                     </compilerPlugins>
-                    <pluginOptions>
-                        <option>all-open:annotation=io.micronaut.aop.Around</option>
-                    </pluginOptions>
+                    <!--<pluginOptions>-->
+                        <!--<option>all-open:annotation=io.micronaut.aop.Around</option>-->
+                    <!--</pluginOptions>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -206,18 +180,18 @@
                             <sourceDirs>
                                 <sourceDir>src/main/kotlin</sourceDir>
                             </sourceDirs>
-                            <annotationProcessorPaths>
-                                <annotationProcessorPath>
-                                    <groupId>io.micronaut</groupId>
-                                    <artifactId>inject-java</artifactId>
-                                    <version>${micronaut.version}</version>
-                                </annotationProcessorPath>
-                                <annotationProcessorPath>
-                                    <groupId>io.micronaut</groupId>
-                                    <artifactId>validation</artifactId>
-                                    <version>${micronaut.version}</version>
-                                </annotationProcessorPath>
-                            </annotationProcessorPaths>
+                            <!--<annotationProcessorPaths>-->
+                                <!--<annotationProcessorPath>-->
+                                    <!--<groupId>io.micronaut</groupId>-->
+                                    <!--<artifactId>inject-java</artifactId>-->
+                                    <!--<version>${micronaut.version}</version>-->
+                                <!--</annotationProcessorPath>-->
+                                <!--<annotationProcessorPath>-->
+                                    <!--<groupId>io.micronaut</groupId>-->
+                                    <!--<artifactId>validation</artifactId>-->
+                                    <!--<version>${micronaut.version}</version>-->
+                                <!--</annotationProcessorPath>-->
+                            <!--</annotationProcessorPaths>-->
                         </configuration>
                     </execution>
                     <execution>
