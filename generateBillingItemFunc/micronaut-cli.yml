@@ -1,0 +1,5 @@
+profile: function-aws
+defaultPackage: pl.altkom.asc.lab.lambda.billing
+---
+testFramework: spek
+sourceLanguage: kotlin

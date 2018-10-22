@@ -1,0 +1,3 @@
+micronaut:
+    function:
+        name: generate-billing-item-func
