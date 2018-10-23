@@ -1,11 +1,8 @@
-# aws-lambda-billing-poc
-AWS Lambda with Micronaut.
+# AWS Labda Billing PoC
 
+## Compilation and deployment
 
-#Compilation and deployment
-
-
-##Preparation
+### Preparation
 Deployment requires AWS CLI and Terraform
 
 Before first deployment you need to initialize Terraform with  
@@ -13,13 +10,13 @@ Before first deployment you need to initialize Terraform with
 init.sh
 ```
 
-##Building
+### Building
 
 ```
 build.sh
 ```
 
-##Deployment
+### Deployment
 Terraform should create all necessary infrastructure (S3 bucket, ...)
 and deploy lambdas code.
 
