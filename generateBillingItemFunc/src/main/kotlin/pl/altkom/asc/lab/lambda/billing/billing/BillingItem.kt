@@ -1,6 +1,7 @@
 package pl.altkom.asc.lab.lambda.billing.billing
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable
 import java.math.BigDecimal
 
@@ -8,6 +9,8 @@ import java.math.BigDecimal
 data class BillingItem(
         @DynamoDBHashKey(attributeName = "key")
         var key: String,
+        @DynamoDBRangeKey(attributeName = "billingKey")
+        var billingKey: String,
         var beneficiary: String,
         var productCode: String,
         var amount: BigDecimal

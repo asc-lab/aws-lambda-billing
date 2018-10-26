@@ -16,7 +16,11 @@ class BillingItemGenerator {
                     val beneficiary = Beneficiary.fromCsvLine(it)
                     val price = priceList.getPrice(beneficiary, billingDate)
 
-                    BillingItem(UUID.randomUUID().toString(), "${beneficiary.nationalId} ${beneficiary.name}", beneficiary.productCode, price)
+                    BillingItem(UUID.randomUUID().toString(),
+                            "${activeList.customerCode}-${activeList.year}-${activeList.month}",
+                            "${beneficiary.nationalId} ${beneficiary.name}",
+                            beneficiary.productCode,
+                            price)
                 }
 
     }
