@@ -1,12 +1,20 @@
+resource "aws_s3_bucket_object" "generateBillingItemFunc_s3"{
+  bucket = "${aws_s3_bucket.lambdas.bucket}"
+  key = "generateBillingItemFunc.jar"
+  source = "generateBillingItemFunc/target/generateBillingItemFunc-0.1.jar"
+  etag = "${md5(file("generateBillingItemFunc/target/generateBillingItemFunc-0.1.jar"))}"
+}
+
 resource "aws_lambda_function" "generateBillingItemFunc" {
   function_name = "GenerateBillingItemFunc"
   handler = "pl.altkom.asc.lab.lambda.billing.GenerateBillingItemFunction::apply"
   role = "${aws_iam_role.lambda_role.arn}"
   runtime = "java8"
-  filename = "generateBillingItemFunc/target/generateBillingItemFunc-0.1.jar"
+  s3_bucket = "${aws_s3_bucket.lambdas.bucket}"
+  s3_key = "${aws_s3_bucket_object.generateBillingItemFunc_s3.key}"
   timeout = "40"
   memory_size = "320"
-  source_code_hash = "${sha1("generateBillingItemFunc/target/generateBillingItemFunc-0.1.jar")}"
+  source_code_hash = "${base64sha256(file("generateBillingItemFunc/target/generateBillingItemFunc-0.1.jar"))}"
 
   environment {
     variables {
