@@ -20,6 +20,7 @@ resource "aws_lambda_function" "generateInvoiceFunc" {
   environment {
     variables {
       INVOICE_PRINT_REQUEST_QUEUE = "${aws_sqs_queue.invoice_print_request_queue.name}"
+      INVOICE_NOTIFY_REQUEST_QUEUE = "${aws_sqs_queue.invoice_notify_request_queue.name}"
     }
   }
 }
