@@ -6,3 +6,6 @@ mvn clean install -f generateInvoiceFunc
 
 mvn clean install -f printInvoiceFunc
 [ $? -eq 0 ] || exit 1
+
+mvn clean install -f notifyInvoiceFunc
+[ $? -eq 0 ] || exit 1
