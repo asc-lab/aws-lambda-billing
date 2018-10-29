@@ -18,34 +18,66 @@ resource "aws_dynamodb_table_item" "ASC_prices" {
   "customerCode": {"S": "ASC"},
   "prices": { "L":[
                     { "M" : {
-                        "ageFrom" : { "N" : "1" },
-                        "ageTo" : { "N" : "199" },
+                        "ageFrom" : { "N" : "0" },
+                        "ageTo" : { "N" : "65" },
                         "gender" : { "S" : "MALE" },
-                        "price" : { "N" : "123" },
+                        "price" : { "N" : "200" },
                         "productCode" : { "S" : "A" }
                         }
                      },
                      { "M" : {
-                        "ageFrom" : { "N" : "1" },
+                        "ageFrom" : { "N" : "66" },
                         "ageTo" : { "N" : "199" },
-                        "gender" : { "S" : "FEMALE" },
-                        "price" : { "N" : "121" },
+                        "gender" : { "S" : "MALE" },
+                        "price" : { "N" : "250" },
                         "productCode" : { "S" : "A" }
                         }
                      },
-                     {"M" : {
-                        "ageFrom" : { "N" : "1" },
+                     { "M" : {
+                        "ageFrom" : { "N" : "0" },
+                        "ageTo" : { "N" : "65" },
+                        "gender" : { "S" : "FEMALE" },
+                        "price" : { "N" : "190" },
+                        "productCode" : { "S" : "A" }
+                        }
+                     },
+                     { "M" : {
+                        "ageFrom" : { "N" : "66" },
                         "ageTo" : { "N" : "199" },
+                        "gender" : { "S" : "FEMALE" },
+                        "price" : { "N" : "240" },
+                        "productCode" : { "S" : "A" }
+                        }
+                     },
+                     { "M" : {
+                        "ageFrom" : { "N" : "0" },
+                        "ageTo" : { "N" : "65" },
                         "gender" : { "S" : "MALE" },
-                        "price" : { "N" : "42" },
+                        "price" : { "N" : "200" },
                         "productCode" : { "S" : "B" }
                         }
                      },
                      { "M" : {
-                        "ageFrom" : { "N" : "1" },
+                        "ageFrom" : { "N" : "66" },
+                        "ageTo" : { "N" : "199" },
+                        "gender" : { "S" : "MALE" },
+                        "price" : { "N" : "250" },
+                        "productCode" : { "S" : "B" }
+                        }
+                     },
+                     { "M" : {
+                        "ageFrom" : { "N" : "0" },
+                        "ageTo" : { "N" : "65" },
+                        "gender" : { "S" : "FEMALE" },
+                        "price" : { "N" : "190" },
+                        "productCode" : { "S" : "B" }
+                        }
+                     },
+                     { "M" : {
+                        "ageFrom" : { "N" : "66" },
                         "ageTo" : { "N" : "199" },
                         "gender" : { "S" : "FEMALE" },
-                        "price" : { "N" : "43" },
+                        "price" : { "N" : "240" },
                         "productCode" : { "S" : "B" }
                         }
                      }
