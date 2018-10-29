@@ -32,8 +32,6 @@ class GenerateInvoiceFunction(
         val request = InvoiceGenerationRequest.fromJSON(message.body)
         val items = billingItemRepository.findForInvoice(request)
 
-        items.map(BillingItem::toString).forEach(log::info)
-
         val invoice = invoiceGenerator.generate(request, items)
 
         invoicePrintRequestPublisher.publish(InvoicePrintRequest(invoice))
