@@ -13,7 +13,7 @@ resource "aws_lambda_function" "generateBillingItemFunc" {
   s3_bucket = "${aws_s3_bucket.lambdas.bucket}"
   s3_key = "${aws_s3_bucket_object.generateBillingItemFunc_s3.key}"
   timeout = "40"
-  memory_size = "320"
+  memory_size = "448"
   source_code_hash = "${base64sha256(file("generateBillingItemFunc/target/generateBillingItemFunc-0.1.jar"))}"
 
   environment {

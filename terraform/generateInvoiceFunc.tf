@@ -14,7 +14,7 @@ resource "aws_lambda_function" "generateInvoiceFunc" {
   s3_key = "${aws_s3_bucket_object.generateInvoiceFunc_s3.key}"
 
   timeout = "40"
-  memory_size = "320"
+  memory_size = "448"
   source_code_hash = "${base64sha256(file("generateInvoiceFunc/target/generateInvoiceFunc-0.1.jar"))}"
 
   environment {
