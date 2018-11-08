@@ -18,6 +18,7 @@ class GenerateBillingItemFunction(
         val activeListParser: ActiveListParser,
         val priceListRepository: PriceListRepository,
         val billingItemRepository: BillingItemRepository,
+        val billingItemGenerator: BillingItemGenerator,
         var invoiceGenerationRequestPublisher: InvoiceGenerationRequestPublisher
 ) : Function<S3EventNotification, String> {
 
@@ -40,9 +41,8 @@ class GenerateBillingItemFunction(
         val activeList = activeListParser.parse(record.s3.`object`.key, reader)
 
         val priceList = priceListRepository.get(activeList.customerCode)
-        val generator = BillingItemGenerator()
 
-        generator.generate(activeList, priceList).forEach(billingItemRepository::save)
+        billingItemGenerator.generate(activeList, priceList).forEach(billingItemRepository::save)
 
         invoiceGenerationRequestPublisher.publish(InvoiceGenerationRequest.forActiveList(activeList))
 
