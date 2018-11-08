@@ -5,12 +5,12 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
 import javax.inject.Singleton
 
 @Singleton
-class BillingItemRepository {
+open class BillingItemRepository {
 
     private val client = AmazonDynamoDBClientBuilder.standard().build()
     private val mapper = DynamoDBMapper(client)
 
-    fun save(billingItem: BillingItem) {
+    open fun save(billingItem: BillingItem) {
         return mapper.save(billingItem)
     }
 }
