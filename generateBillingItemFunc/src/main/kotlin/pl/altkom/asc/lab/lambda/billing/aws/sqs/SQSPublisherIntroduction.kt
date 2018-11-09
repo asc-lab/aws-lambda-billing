@@ -39,7 +39,7 @@ class SQSPublisherIntroduction(
 
         val time = measureTimeMillis {
 
-            context.arguments.forEach {
+            context.parameterValues.forEach {
                 sqs.sendMessage(SendMessageRequest(queueUrl, Jackson.toJsonPrettyString(it)))
             }
         }
