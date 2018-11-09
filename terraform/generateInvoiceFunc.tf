@@ -7,7 +7,7 @@ resource "aws_s3_bucket_object" "generateInvoiceFunc_s3"{
 
 resource "aws_lambda_function" "generateInvoiceFunc" {
   function_name = "GenerateInvoiceFunc"
-  handler = "pl.altkom.asc.lab.lambda.invoice.GenerateInvoiceFunction::apply"
+  handler = "io.micronaut.function.aws.MicronautRequestStreamHandler"
   role = "${aws_iam_role.lambda_role.arn}"
   runtime = "java8"
   s3_bucket = "${aws_s3_bucket.lambdas.bucket}"
