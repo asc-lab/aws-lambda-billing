@@ -29,6 +29,6 @@ resource "aws_lambda_function" "notifyInvoiceFunc" {
 resource "aws_lambda_event_source_mapping" "invoice_notify_request_mapping" {
   batch_size = 10
   event_source_arn = "${aws_sqs_queue.invoice_notify_request_queue.arn}"
-  enabled = true
+  enabled           = "${var.active}"
   function_name = "${aws_lambda_function.notifyInvoiceFunc.arn}"
 }

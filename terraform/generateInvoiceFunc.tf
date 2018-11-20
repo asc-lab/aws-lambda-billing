@@ -28,6 +28,6 @@ resource "aws_lambda_function" "generateInvoiceFunc" {
 resource "aws_lambda_event_source_mapping" "invoice_generation_request_mapping" {
   batch_size        = 10
   event_source_arn  = "${aws_sqs_queue.invoice_generation_request_queue.arn}"
-  enabled           = true
+  enabled           = "${var.active}"
   function_name     = "${aws_lambda_function.generateInvoiceFunc.arn}"
 }
