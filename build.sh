@@ -1,3 +1,6 @@
+mvn clean install -f micronaut-aws-sqs
+[ $? -eq 0 ] || exit 1
+
 mvn clean install -f generateBillingItemFunc
 [ $? -eq 0 ] || exit 1
 
