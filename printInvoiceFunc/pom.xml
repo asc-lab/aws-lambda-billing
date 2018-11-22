@@ -7,7 +7,7 @@
     <version>0.1</version>
     <properties>
         <exec.mainClass>pl.altkom.asc.lab.lambda.billing.Application</exec.mainClass>
-        <micronaut.version>1.0.0.RC2</micronaut.version>
+        <micronaut.version>1.0.0</micronaut.version>
         <jdk.version>1.8</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlinVersion>1.2.61</kotlinVersion>
@@ -23,7 +23,7 @@
         <dependencies>
             <dependency>
                 <groupId>io.micronaut</groupId>
-                <artifactId>bom</artifactId>
+                <artifactId>micronaut-bom</artifactId>
                 <version>${micronaut.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -31,6 +31,11 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+        <dependency>
+            <groupId>io.micronaut</groupId>
+            <artifactId>micronaut-function-aws</artifactId>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
@@ -45,7 +50,7 @@
         </dependency>
         <dependency>
             <groupId>io.micronaut</groupId>
-            <artifactId>runtime</artifactId>
+            <artifactId>micronaut-runtime</artifactId>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -96,22 +101,22 @@
         </dependency>
         <dependency>
             <groupId>io.micronaut</groupId>
-            <artifactId>function-client</artifactId>
+            <artifactId>micronaut-function-client</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.micronaut</groupId>
-            <artifactId>http-client</artifactId>
+            <artifactId>micronaut-http-client</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.micronaut</groupId>
-            <artifactId>http-server-netty</artifactId>
+            <artifactId>micronaut-http-server-netty</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.micronaut</groupId>
-            <artifactId>function-web</artifactId>
+            <artifactId>micronaut-function-web</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -209,12 +214,12 @@
                             <annotationProcessorPaths>
                                 <annotationProcessorPath>
                                     <groupId>io.micronaut</groupId>
-                                    <artifactId>inject-java</artifactId>
+                                    <artifactId>micronaut-inject-java</artifactId>
                                     <version>${micronaut.version}</version>
                                 </annotationProcessorPath>
                                 <annotationProcessorPath>
                                     <groupId>io.micronaut</groupId>
-                                    <artifactId>validation</artifactId>
+                                    <artifactId>micronaut-validation</artifactId>
                                     <version>${micronaut.version}</version>
                                 </annotationProcessorPath>
                             </annotationProcessorPaths>
@@ -244,12 +249,12 @@
                             <annotationProcessorPaths>
                                 <annotationProcessorPath>
                                     <groupId>io.micronaut</groupId>
-                                    <artifactId>inject-java</artifactId>
+                                    <artifactId>micronaut-inject-java</artifactId>
                                     <version>${micronaut.version}</version>
                                 </annotationProcessorPath>
                                 <annotationProcessorPath>
                                     <groupId>io.micronaut</groupId>
-                                    <artifactId>validation</artifactId>
+                                    <artifactId>micronaut-validation</artifactId>
                                     <version>${micronaut.version}</version>
                                 </annotationProcessorPath>
                             </annotationProcessorPaths>

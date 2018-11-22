@@ -4,7 +4,9 @@ import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.ObjectMetadata
 import org.slf4j.LoggerFactory
 import java.io.InputStream
+import javax.inject.Singleton
 
+@Singleton
 class InvoiceStore {
 
     private val log = LoggerFactory.getLogger(this.javaClass)!!

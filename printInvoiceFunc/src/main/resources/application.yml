@@ -1,0 +1,3 @@
+micronaut:
+    function:
+        name: print-invoice-func

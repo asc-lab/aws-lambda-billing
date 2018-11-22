@@ -3,18 +3,20 @@ package pl.altkom.asc.lab.lambda.printing.printing
 import com.amazonaws.util.json.Jackson
 import org.slf4j.LoggerFactory
 import pl.altkom.asc.lab.lambda.printing.invoicing.Invoice
+import sun.misc.BASE64Encoder
 import java.io.InputStream
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
-import sun.misc.BASE64Encoder
+import javax.inject.Singleton
 
-class InvoicePrinter(
-        val jsReportUrl: String = System.getenv("JS_REPORT_URL") ?: "",
-        val invoiceTemplateName: String = System.getenv("INVOICE_TEMPLATE_NAME") ?: "",
-        val username: String = System.getenv("JS_REPORT_USERNAME") ?: "",
-        val password: String = System.getenv("JS_REPORT_PASSWORD") ?: ""
-) {
+@Singleton
+class InvoicePrinter {
+
+    val jsReportUrl: String = System.getenv("JS_REPORT_URL") ?: ""
+    val invoiceTemplateName: String = System.getenv("INVOICE_TEMPLATE_NAME") ?: ""
+    val username: String = System.getenv("JS_REPORT_USERNAME") ?: ""
+    val password: String = System.getenv("JS_REPORT_PASSWORD") ?: ""
 
     private val log = LoggerFactory.getLogger(this.javaClass)!!
 
@@ -40,7 +42,7 @@ class InvoicePrinter(
             wr.write(Jackson.toJsonPrettyString(request))
             wr.flush()
 
-            log.info("PDF generated in ${System.currentTimeMillis()-start}ms")
+            log.info("PDF generated in ${System.currentTimeMillis() - start}ms")
 
             return inputStream
         }

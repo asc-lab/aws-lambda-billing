@@ -7,7 +7,7 @@ resource "aws_s3_bucket_object" "printInvoiceFunc_s3"{
 
 resource "aws_lambda_function" "printInvoiceFunc" {
   function_name = "PrintInvoiceFunc"
-  handler = "pl.altkom.asc.lab.lambda.printing.PrintInvoiceFunction::apply"
+  handler = "io.micronaut.function.aws.MicronautRequestStreamHandler"
   role = "${aws_iam_role.lambda_role.arn}"
   runtime = "java8"
   s3_bucket = "${aws_s3_bucket.lambdas.bucket}"
