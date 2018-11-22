@@ -5,21 +5,22 @@ import com.twilio.rest.api.v2010.account.Message
 import com.twilio.type.PhoneNumber
 import org.slf4j.LoggerFactory
 import pl.altkom.asc.lab.lambda.notification.notification.InvoiceNotificationRequest
+import javax.inject.Singleton
 
 
-class SmsSender(
-        val accountSid: String = System.getenv("TWILIO_ACCOUNT_SID") ?: "",
-        val authToken: String = System.getenv("TWILIO_AUTH_TOKEN") ?: ""
-) {
+@Singleton
+class SmsSender {
+
+    val accountSid: String = System.getenv("TWILIO_ACCOUNT_SID") ?: ""
+    val authToken: String = System.getenv("TWILIO_AUTH_TOKEN") ?: ""
 
     private val log = LoggerFactory.getLogger(this.javaClass)!!
 
     init {
         val start = System.currentTimeMillis()
         Twilio.init(accountSid, authToken)
-        log.info("Twilio initialized in ${System.currentTimeMillis()-start}ms")
+        log.info("Twilio initialized in ${System.currentTimeMillis() - start}ms")
     }
-
 
 
     fun sendSms(request: InvoiceNotificationRequest) {
@@ -32,6 +33,6 @@ class SmsSender(
                 .create()
 
         log.info("Twilio message sent with status:${message.status}")
-        log.info("Twilio message sent in ${System.currentTimeMillis()-start}ms")
+        log.info("Twilio message sent in ${System.currentTimeMillis() - start}ms")
     }
 }

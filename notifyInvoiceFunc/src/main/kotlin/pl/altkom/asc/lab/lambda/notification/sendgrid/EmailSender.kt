@@ -4,9 +4,13 @@ import com.sendgrid.*
 import org.slf4j.LoggerFactory
 import pl.altkom.asc.lab.lambda.notification.notification.InvoiceNotificationRequest
 import java.io.IOException
+import javax.inject.Singleton
 
 
-class EmailSender(val apiKey:String = System.getenv("SENDGRID_API_KEY") ?: "") {
+@Singleton
+class EmailSender {
+
+    val apiKey:String = System.getenv("SENDGRID_API_KEY") ?: ""
 
     private val log = LoggerFactory.getLogger(this.javaClass)!!
 
