@@ -43,18 +43,25 @@ sendgrid_api_key = "SG.rePNAA_AAAAaAA1aAAAi6w.r5AAAUZhyaaaUo7w0030MFAauAaTWvXw-n
 twilio_account_sid = "ACd111feb1c11f11111111cd1dd1111c11"
 twilio_auth_token = "1ed1a11111b1af1111b111d1111dd11d"
 ```
- 
 
-## Building
 
-```
-build.sh
-```
-
-## Deployment
+## Building and Deployment
 Terraform should create all necessary infrastructure (S3 bucket, SQS Queues, DynamoDB Tables (with data))
 and deploy lambdas code.
 
 ```
 buildAndDeploy.sh
 ```
+
+## Testing
+You should see S3 Bucket called asc-lab-serverless-input. Put there sample file and enjoy logs in AWS CloudWatch. 
+
+## Disabling
+SQS triggers can actively check queues for new messages. If you don't want to exceed your free tier, you can disable them using our Terraform configuration. Just run:
+```
+terraform apply -auto-approve -var-file="billing.tfvars" -var "active=false" terraform
+```
+To re-enable triggers run:
+```
+terraform apply -auto-approve -var-file="billing.tfvars" -var "active=true" terraform
+```    
