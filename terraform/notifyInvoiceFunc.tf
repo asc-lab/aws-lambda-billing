@@ -7,7 +7,7 @@ resource "aws_s3_bucket_object" "notifyInvoiceFunc_s3" {
 
 resource "aws_lambda_function" "notifyInvoiceFunc" {
   function_name = "NotifyInvoiceFunc"
-  handler = "io.micronaut.function.aws.MicronautRequestStreamHandler"
+  handler = "pl.altkom.asc.lab.lambda.notification.CachingRequestHandler"
   role = "${aws_iam_role.lambda_role.arn}"
   runtime = "java8"
   s3_bucket = "${aws_s3_bucket.lambdas.bucket}"
