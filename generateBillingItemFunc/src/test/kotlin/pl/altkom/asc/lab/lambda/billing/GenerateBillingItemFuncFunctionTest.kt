@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 
 class GenerateBillingItemFuncFunctionTest : Spek({
 
-    val function: GenerateBillingItemFunction = DaggerAppComponent.builder().appModule(AppTestModule()).build().provideFunction()
+    val function: GenerateBillingItemFunction = DaggerFunctionComponent.builder().functionModule(FunctionTestModule()).build().provideFunction()
 
     describe("generate-billing-item-func function") {
 

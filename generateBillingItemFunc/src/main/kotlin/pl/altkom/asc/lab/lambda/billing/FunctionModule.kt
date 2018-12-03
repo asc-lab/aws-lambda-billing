@@ -8,7 +8,7 @@ import pl.altkom.asc.lab.lambda.billing.aws.S3Client
 
 
 @Module
-open class AppModule {
+open class FunctionModule {
 
     @Provides
     open fun provideAmazonS3(): S3Client = S3Client()

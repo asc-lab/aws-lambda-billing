@@ -7,7 +7,7 @@ import org.mockito.Mockito
 import pl.altkom.asc.lab.lambda.billing.aws.S3Client
 import pl.altkom.asc.lab.lambda.billing.aws.S3ClientMock
 
-class AppTestModule : AppModule() {
+class FunctionTestModule : FunctionModule() {
 
     override fun provideAmazonS3(): S3Client {
         return S3ClientMock()
