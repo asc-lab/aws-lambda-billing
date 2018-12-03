@@ -1,10 +1,25 @@
 package pl.altkom.asc.lab.lambda.billing.invoicing
 
-import pl.altkom.asc.lab.lambda.billing.aws.SQSPublisher
+import com.amazonaws.services.sqs.AmazonSQS
+import com.amazonaws.services.sqs.model.SendMessageRequest
+import com.amazonaws.util.json.Jackson
+import java.util.logging.Logger
+import javax.inject.Inject
+import kotlin.system.measureTimeMillis
 
-@SQSPublisher("\${INVOICE_GENERATION_REQUEST_QUEUE:}")
-interface InvoiceGenerationRequestPublisher {
+class InvoiceGenerationRequestPublisher @Inject constructor(private val sqs: AmazonSQS) {
 
-    fun publish(invoiceGenerationRequest: InvoiceGenerationRequest)
+    private val log = Logger.getLogger(this.javaClass.name)!!
+
+    private val queueName: String = System.getenv("INVOICE_GENERATION_REQUEST_QUEUE") ?: ""
+    private val queueUrl = sqs.getQueueUrl(queueName).queueUrl
+
+    fun publish(invoiceGenerationRequest: InvoiceGenerationRequest) {
+        val time = measureTimeMillis {
+            sqs.sendMessage(SendMessageRequest(queueUrl, Jackson.toJsonPrettyString(invoiceGenerationRequest)))
+        }
+
+        log.info("InvoiceGenerationRequest published in $time ms")
+    }
 
 }

@@ -1,8 +1,6 @@
 package pl.altkom.asc.lab.lambda.billing
 
 import com.amazonaws.services.s3.event.S3EventNotification
-import io.micronaut.function.FunctionBean
-import org.slf4j.LoggerFactory
 import pl.altkom.asc.lab.lambda.billing.aws.S3Client
 import pl.altkom.asc.lab.lambda.billing.billing.ActiveListParser
 import pl.altkom.asc.lab.lambda.billing.billing.BillingItemGenerator
@@ -11,18 +9,22 @@ import pl.altkom.asc.lab.lambda.billing.invoicing.InvoiceGenerationRequest
 import pl.altkom.asc.lab.lambda.billing.invoicing.InvoiceGenerationRequestPublisher
 import pl.altkom.asc.lab.lambda.billing.pricing.PriceListRepository
 import java.util.function.Function
+import java.util.logging.Logger
+import javax.inject.Inject
+import javax.inject.Singleton
 
-@FunctionBean("generate-billing-item-func")
-class GenerateBillingItemFunction(
-        val s3Client: S3Client,
+
+@Singleton
+class GenerateBillingItemFunction @Inject constructor(
         val activeListParser: ActiveListParser,
         val priceListRepository: PriceListRepository,
         val billingItemRepository: BillingItemRepository,
         val billingItemGenerator: BillingItemGenerator,
-        var invoiceGenerationRequestPublisher: InvoiceGenerationRequestPublisher
+        val invoiceGenerationRequestPublisher: InvoiceGenerationRequestPublisher,
+        val s3Client: S3Client
 ) : Function<S3EventNotification, String> {
 
-    private val log = LoggerFactory.getLogger(this.javaClass)!!
+    private val log = Logger.getLogger(this.javaClass.name)!!
 
     override fun apply(event: S3EventNotification): String {
         log.info("Triggered by event with ${event.records.size} records")

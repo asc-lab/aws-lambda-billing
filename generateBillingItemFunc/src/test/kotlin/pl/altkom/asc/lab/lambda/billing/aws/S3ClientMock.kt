@@ -1,13 +1,9 @@
 package pl.altkom.asc.lab.lambda.billing.aws
 
 import com.amazonaws.services.s3.event.S3EventNotification
-import io.micronaut.context.annotation.Replaces
 import java.io.BufferedReader
 import java.io.StringReader
-import javax.inject.Singleton
 
-@Replaces(bean = S3Client::class)
-@Singleton
 class S3ClientMock : S3Client() {
 
     override fun getReader(record: S3EventNotification.S3EventNotificationRecord): BufferedReader {

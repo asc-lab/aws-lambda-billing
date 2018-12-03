@@ -1,10 +1,11 @@
 package pl.altkom.asc.lab.lambda.billing.billing
 
 import java.io.BufferedReader
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ActiveListParser {
+class ActiveListParser @Inject constructor() {
 
     fun parse(name: String, reader: BufferedReader): ActiveList {
         val parts = name.split("_")

@@ -1,21 +1,22 @@
-package pl.altkom.asc.lab.lambda.billing.aws
+package pl.altkom.asc.lab.lambda.billing
 
 import com.amazonaws.services.sqs.AmazonSQS
 import com.amazonaws.services.sqs.model.GetQueueUrlResult
-import io.micronaut.context.annotation.Bean
-import io.micronaut.context.annotation.Factory
-import io.micronaut.context.annotation.Replaces
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
+import pl.altkom.asc.lab.lambda.billing.aws.S3Client
+import pl.altkom.asc.lab.lambda.billing.aws.S3ClientMock
 
-@Replaces(factory = SQSClient::class)
-@Factory
-class SQSClientMock : SQSClient() {
+class AppTestModule : AppModule() {
 
-    @Bean
-    override fun amazonSQS(): AmazonSQS {
+    override fun provideAmazonS3(): S3Client {
+        return S3ClientMock()
+    }
+
+    override fun provideAmazonSQS(): AmazonSQS {
         val mock = Mockito.mock(AmazonSQS::class.java)
         Mockito.`when`(mock.getQueueUrl(ArgumentMatchers.anyString())).thenReturn(GetQueueUrlResult().withQueueUrl("test"))
         return mock
     }
+
 }

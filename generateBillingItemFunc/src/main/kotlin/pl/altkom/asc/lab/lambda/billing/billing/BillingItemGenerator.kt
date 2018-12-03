@@ -4,10 +4,11 @@ import com.amazonaws.util.StringUtils
 import pl.altkom.asc.lab.lambda.billing.pricing.PriceList
 import java.time.LocalDate
 import java.util.*
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class BillingItemGenerator {
+class BillingItemGenerator @Inject constructor() {
 
     fun generate(activeList: ActiveList, priceList: PriceList): Sequence<BillingItem> {
         val billingDate = LocalDate.of(activeList.year, activeList.month, 1)
