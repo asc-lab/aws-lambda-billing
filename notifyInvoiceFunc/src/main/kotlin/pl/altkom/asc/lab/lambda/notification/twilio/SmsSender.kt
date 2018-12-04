@@ -5,11 +5,12 @@ import com.twilio.rest.api.v2010.account.Message
 import com.twilio.type.PhoneNumber
 import org.slf4j.LoggerFactory
 import pl.altkom.asc.lab.lambda.notification.notification.InvoiceNotificationRequest
+import javax.inject.Inject
 import javax.inject.Singleton
 
 
 @Singleton
-class SmsSender {
+class SmsSender @Inject constructor(){
 
     val accountSid: String = System.getenv("TWILIO_ACCOUNT_SID") ?: ""
     val authToken: String = System.getenv("TWILIO_AUTH_TOKEN") ?: ""

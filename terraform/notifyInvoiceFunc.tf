@@ -7,7 +7,7 @@ resource "aws_s3_bucket_object" "notifyInvoiceFunc_s3" {
 
 resource "aws_lambda_function" "notifyInvoiceFunc" {
   function_name = "NotifyInvoiceFunc"
-  handler = "pl.altkom.asc.lab.lambda.notification.CachingRequestHandler"
+  handler = "pl.altkom.asc.lab.lambda.notification.RequestHandler::apply"
   role = "${aws_iam_role.lambda_role.arn}"
   runtime = "java8"
   s3_bucket = "${aws_s3_bucket.lambdas.bucket}"
@@ -16,6 +16,8 @@ resource "aws_lambda_function" "notifyInvoiceFunc" {
   timeout = "40"
   memory_size = "320"
   source_code_hash = "${base64sha256(file("notifyInvoiceFunc/target/notifyInvoiceFunc-0.1.jar"))}"
+
+  reserved_concurrent_executions = 1
 
   environment {
     variables {

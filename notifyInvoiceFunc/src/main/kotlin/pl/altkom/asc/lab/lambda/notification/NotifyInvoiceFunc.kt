@@ -1,26 +1,25 @@
 package pl.altkom.asc.lab.lambda.notification
 
+import com.amazonaws.services.lambda.runtime.events.SQSEvent
 import com.fasterxml.jackson.annotation.JsonProperty
-import io.micronaut.function.FunctionBean
 import pl.altkom.asc.lab.lambda.notification.notification.InvoiceNotificationRequest
 import pl.altkom.asc.lab.lambda.notification.sendgrid.EmailSender
 import pl.altkom.asc.lab.lambda.notification.twilio.SmsSender
 import java.util.function.Function
+import javax.inject.Inject
 
-@FunctionBean("notify-invoice-func")
-class NotifyInvoiceFunction(
+class NotifyInvoiceFunction @Inject constructor(
         val emailSender: EmailSender,
         val smsSender: SmsSender
-) : Function<Event, String> {
+) : Function<SQSEvent, String> {
 
-    override fun apply(event: Event): String {
+    override fun apply(event: SQSEvent): String {
 
-        event.records.forEach(this::processMessage)
-
+        event.records!!.forEach(this::processMessage)
         return "OK"
     }
 
-    private fun processMessage(message: EventRecord) {
+    private fun processMessage(message: SQSEvent.SQSMessage) {
         val request = InvoiceNotificationRequest.fromJSON(message.body)
 
         if (request.invoice != null) {
@@ -33,7 +32,7 @@ class NotifyInvoiceFunction(
 
 data class Event(
         @JsonProperty(value = "Records")
-        var records: Array<EventRecord>
+        var records: Array<EventRecord>? = null
 )
 
 data class EventRecord(var body: String)
