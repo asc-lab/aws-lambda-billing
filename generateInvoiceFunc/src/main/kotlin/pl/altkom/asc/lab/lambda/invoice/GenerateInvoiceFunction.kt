@@ -1,9 +1,8 @@
 package pl.altkom.asc.lab.lambda.invoice
 
+import com.amazonaws.services.lambda.runtime.events.SQSEvent
 import com.amazonaws.util.json.Jackson
 import com.fasterxml.jackson.annotation.JsonProperty
-import io.micronaut.function.FunctionBean
-import org.slf4j.LoggerFactory
 import pl.altkom.asc.lab.lambda.invoice.billing.BillingItemRepository
 import pl.altkom.asc.lab.lambda.invoice.invoicing.InvoiceGenerationRequest
 import pl.altkom.asc.lab.lambda.invoice.invoicing.InvoiceGenerator
@@ -12,22 +11,25 @@ import pl.altkom.asc.lab.lambda.invoice.notification.InvoiceNotificationRequestP
 import pl.altkom.asc.lab.lambda.invoice.printing.InvoicePrintRequest
 import pl.altkom.asc.lab.lambda.invoice.printing.InvoicePrintRequestPublisher
 import java.util.function.Function
+import java.util.logging.Logger
+import javax.inject.Inject
+import javax.inject.Singleton
 
-@FunctionBean("generate-invoice-func")
-class GenerateInvoiceFunction(
+@Singleton
+class GenerateInvoiceFunction @Inject constructor(
         val billingItemRepository: BillingItemRepository,
         val invoiceGenerator: InvoiceGenerator,
         val invoicePrintRequestPublisher: InvoicePrintRequestPublisher,
         val invoiceNotifyRequestPublisher: InvoiceNotificationRequestPublisher
-) : Function<Event, String> {
+) : Function<SQSEvent, String> {
 
-    private val log = LoggerFactory.getLogger(this.javaClass)!!
+    private val log = Logger.getLogger(this.javaClass.name)!!
 
-    override fun apply(event: Event): String {
+    override fun apply(event: SQSEvent): String {
 
         log.info(Jackson.toJsonPrettyString(event))
 
-        event.records.map { it.body }.forEach(this::processMessage)
+        event.records!!.map { it.body }.forEach(this::processMessage)
 
         return "OK"
     }
@@ -43,9 +45,13 @@ class GenerateInvoiceFunction(
     }
 }
 
-data class Event(
+class Event {
+
+    @JsonProperty(value = "Records")
+    var records: Array<EventRecord>? = null
+        public get
         @JsonProperty(value = "Records")
-        var records: Array<EventRecord>
-)
+        public set
+}
 
 data class EventRecord(var body: String)

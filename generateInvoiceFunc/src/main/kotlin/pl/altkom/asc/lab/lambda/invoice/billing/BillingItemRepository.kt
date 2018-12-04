@@ -5,10 +5,11 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression
 import com.amazonaws.services.dynamodbv2.model.AttributeValue
 import pl.altkom.asc.lab.lambda.invoice.invoicing.InvoiceGenerationRequest
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class BillingItemRepository {
+class BillingItemRepository @Inject constructor() {
 
     private val client = AmazonDynamoDBClientBuilder.standard().build()
     private val mapper = DynamoDBMapper(client)
