@@ -1,24 +1,25 @@
 package pl.altkom.asc.lab.lambda.printing.printing
 
 import com.amazonaws.util.json.Jackson
-import org.slf4j.LoggerFactory
 import pl.altkom.asc.lab.lambda.printing.invoicing.Invoice
 import sun.misc.BASE64Encoder
 import java.io.InputStream
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.logging.Logger
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class InvoicePrinter {
+class InvoicePrinter @Inject constructor() {
 
     val jsReportUrl: String = System.getenv("JS_REPORT_URL") ?: ""
     val invoiceTemplateName: String = System.getenv("INVOICE_TEMPLATE_NAME") ?: ""
     val username: String = System.getenv("JS_REPORT_USERNAME") ?: ""
     val password: String = System.getenv("JS_REPORT_PASSWORD") ?: ""
 
-    private val log = LoggerFactory.getLogger(this.javaClass)!!
+    private val log = Logger.getLogger(this.javaClass.name)!!
 
     fun print(invoice: Invoice): InputStream {
 

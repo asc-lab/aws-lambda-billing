@@ -2,14 +2,15 @@ package pl.altkom.asc.lab.lambda.printing.printing
 
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.ObjectMetadata
-import org.slf4j.LoggerFactory
 import java.io.InputStream
+import java.util.logging.Logger
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class InvoiceStore {
+class InvoiceStore @Inject constructor(){
 
-    private val log = LoggerFactory.getLogger(this.javaClass)!!
+    private val log = Logger.getLogger(this.javaClass.name)!!
 
     private val s3Client = AmazonS3Client.builder().build()
     private val bucketName: String = System.getenv("INVOICE_PRINTOUT_BUCKET") ?: ""

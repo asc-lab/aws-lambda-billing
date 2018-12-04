@@ -1,26 +1,28 @@
 package pl.altkom.asc.lab.lambda.printing
 
+import com.amazonaws.services.lambda.runtime.events.SQSEvent
 import com.fasterxml.jackson.annotation.JsonProperty
-import io.micronaut.function.FunctionBean
 import pl.altkom.asc.lab.lambda.printing.printing.InvoicePrintRequest
 import pl.altkom.asc.lab.lambda.printing.printing.InvoicePrinter
 import pl.altkom.asc.lab.lambda.printing.printing.InvoiceStore
 import java.util.function.Function
+import javax.inject.Inject
+import javax.inject.Singleton
 
-@FunctionBean("print-invoice-func")
-class PrintInvoiceFunction(
+@Singleton
+class PrintInvoiceFunction @Inject constructor (
         private val invoicePrinter: InvoicePrinter,
         private val invoiceStore: InvoiceStore
-) : Function<Event, String> {
+) : Function<SQSEvent, String> {
 
-    override fun apply(event: Event): String {
+    override fun apply(event: SQSEvent): String {
 
         event.records.forEach(this::processMessage)
 
         return "OK"
     }
 
-    private fun processMessage(message: EventRecord) {
+    private fun processMessage(message: SQSEvent.SQSMessage) {
         val request = InvoicePrintRequest.fromJSON(message.body)
 
         if (request.invoice != null) {

@@ -7,7 +7,7 @@ resource "aws_s3_bucket_object" "printInvoiceFunc_s3"{
 
 resource "aws_lambda_function" "printInvoiceFunc" {
   function_name = "PrintInvoiceFunc"
-  handler = "pl.altkom.asc.lab.lambda.printing.CachingRequestHandler"
+  handler = "pl.altkom.asc.lab.lambda.printing.RequestHandler::apply"
   role = "${aws_iam_role.lambda_role.arn}"
   runtime = "java8"
   s3_bucket = "${aws_s3_bucket.lambdas.bucket}"
@@ -16,6 +16,8 @@ resource "aws_lambda_function" "printInvoiceFunc" {
   timeout = "40"
   memory_size = "320"
   source_code_hash = "${base64sha256(file("printInvoiceFunc/target/printInvoiceFunc-0.1.jar"))}"
+
+  reserved_concurrent_executions = 1
 
   environment {
     variables {
