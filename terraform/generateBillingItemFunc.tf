@@ -7,7 +7,7 @@ resource "aws_s3_bucket_object" "generateBillingItemFunc_s3"{
 
 resource "aws_lambda_function" "generateBillingItemFunc" {
   function_name = "GenerateBillingItemFunc"
-  handler = "pl.altkom.asc.lab.lambda.billing.CachingRequestHandler"
+  handler = "io.micronaut.function.aws.MicronautRequestStreamHandler"
   role = "${aws_iam_role.lambda_role.arn}"
   runtime = "java8"
   s3_bucket = "${aws_s3_bucket.lambdas.bucket}"
@@ -15,6 +15,8 @@ resource "aws_lambda_function" "generateBillingItemFunc" {
   timeout = "40"
   memory_size = "448"
   source_code_hash = "${base64sha256(file("generateBillingItemFunc/target/generateBillingItemFunc-0.1-package.zip"))}"
+
+  reserved_concurrent_executions = 1
 
   environment {
     variables {

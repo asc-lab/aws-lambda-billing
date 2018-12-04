@@ -7,7 +7,7 @@ resource "aws_s3_bucket_object" "generateInvoiceFunc_s3"{
 
 resource "aws_lambda_function" "generateInvoiceFunc" {
   function_name = "GenerateInvoiceFunc"
-  handler = "pl.altkom.asc.lab.lambda.invoice.CachingRequestHandler"
+  handler = "io.micronaut.function.aws.MicronautRequestStreamHandler"
   role = "${aws_iam_role.lambda_role.arn}"
   runtime = "java8"
   s3_bucket = "${aws_s3_bucket.lambdas.bucket}"
@@ -16,6 +16,8 @@ resource "aws_lambda_function" "generateInvoiceFunc" {
   timeout = "40"
   memory_size = "448"
   source_code_hash = "${base64sha256(file("generateInvoiceFunc/target/generateInvoiceFunc-0.1.jar"))}"
+
+  reserved_concurrent_executions = 1
 
   environment {
     variables {
