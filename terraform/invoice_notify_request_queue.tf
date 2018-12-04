@@ -15,7 +15,7 @@ resource "aws_sqs_queue" "invoice_notify_request_queue" {
   message_retention_seconds = 86400
   receive_wait_time_seconds = 10
   visibility_timeout_seconds = 60
-  redrive_policy = "{\"deadLetterTargetArn\":\"${aws_sqs_queue.invoice_notify_request_queue_deadletter.arn}\",\"maxReceiveCount\":1}"
+  redrive_policy = "{\"deadLetterTargetArn\":\"${aws_sqs_queue.invoice_notify_request_queue_deadletter.arn}\",\"maxReceiveCount\":4}"
 
   tags {
     Environment = "production"
