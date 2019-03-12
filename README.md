@@ -2,6 +2,10 @@
 
 This example shows simplified billing system in serverless architecture.
 
+Comprehensive guide describing exactly the architecture, applied design patterns and technologies can be found on our blog in article **[Simplified billing system with AWS Lambda. Comparision: Kotlin + Micronaut vs Kotlin + Dagger vs vanilla Kotlin](https://altkomsoftware.pl/en/blog/billing-system/)**.
+
+**We encourage you to read, because in this README there is only a substitute for all information.**
+
 <p align="center">
     <img alt="Architecture" src="https://raw.githubusercontent.com/asc-lab/aws-lambda-billing/master/readme-images/aws-lambda-architecture.png" />
 </p>
